@@ -1,0 +1,14 @@
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id={{ get_gtm_id() }}" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+
+<div
+    id="google-tag-manager-configuration"
+    data-id="{{ get_gtm_id() }}"
+    data-data-layer="{{ get_gtm_data_layer(app.request.attributes.get('_route')) }}"
+    data-on-event="{{ is_gtm_on_event() }}"
+    {% if is_gtm_on_event() %}data-event-name="{{ get_gtm_on_event_name() }}"{% endif %}
+    {% if is_gtm_on_event() %}data-event-container="{{ get_gtm_on_event_container() }}"{% endif %}
+>
+</div>
+

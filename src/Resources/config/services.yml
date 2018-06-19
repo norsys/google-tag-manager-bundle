@@ -1,0 +1,33 @@
+parameters:
+    norsys_google_tag_manager.config.resolver.class: Norsys\GoogleTagManagerBundle\Config\Resolver
+    norsys_google_tag_manager.dynamic.parameter_registry.class: Norsys\GoogleTagManagerBundle\Dynamic\ParameterRegistry
+    norsys_google_tag_manager.twig.extension.gtm.class: Norsys\GoogleTagManagerBundle\Twig\Extension\GoogleTagManager
+    norsys_google_tag_manager.dynamic.parameter.generic.agent.class: Norsys\GoogleTagManagerBundle\Dynamic\Parameter\Generic\Agent
+
+services:
+    norsys_google_tag_manager.config.resolver:
+        class: '%norsys_google_tag_manager.config.resolver.class%'
+        arguments:
+            - '@norsys_google_tag_manager.dynamic.parameter_registry'
+            - '%norsys_google_tag_manager.pages.configs%'
+            - '%norsys_google_tag_manager.parameters.aliases%'
+
+    norsys_google_tag_manager.dynamic.parameter_registry:
+        class: '%norsys_google_tag_manager.dynamic.parameter_registry.class%'
+
+    norsys_google_tag_manager.dynamic.parameter.generic.agent:
+        class: '%norsys_google_tag_manager.dynamic.parameter.generic.agent.class%'
+        arguments:
+            - '@request_stack'
+
+    norsys_google_tag_manager.twig.extension.gtm:
+        class: '%norsys_google_tag_manager.twig.extension.gtm.class%'
+        public: false
+        arguments:
+            - '@norsys_google_tag_manager.config.resolver'
+            - '%norsys_google_tag_manager.id%'
+            - '%norsys_google_tag_manager.on_event.enabled%'
+            - '%norsys_google_tag_manager.on_event.container%'
+            - '%norsys_google_tag_manager.on_event.name%'
+        tags:
+            - { name: twig.extension }

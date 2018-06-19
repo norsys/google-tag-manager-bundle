@@ -1,0 +1,10 @@
+/bin/*
+/composer.lock
+/composer.passwd
+/.env
+!.gitkeep
+/.install
+/packages
+/phpunit.xml
+/tmp/*
+/vendor/
