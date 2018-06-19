@@ -1,0 +1,40 @@
+{
+    "name": "norsys/google-tag-manager-bundle",
+    "description": "Bundle handling Google Tag Manager",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Yann Blacher",
+            "email": "yblacher@norsys.fr"
+        },
+        {
+            "name": "Cédric Vanet",
+            "email": "cvanet@norsys.fr"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Norsys\\GoogleTagManagerBundle\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Units\\": "tests/units"
+        }
+    },
+    "require": {
+        "php": ">=7.0.0",
+        "symfony/dependency-injection": "^3.1.0",
+        "symfony/config": "^3.1.0",
+        "symfony/http-kernel": "^3.1.0",
+        "twig/extensions": "^1.5"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^2.6",
+        "atoum/atoum": "~3.0",
+        "atoum/stubs": "~2.5",
+        "atoum/bdd-extension": "~2.1",
+        "norsys/php-coding-standard": "~1.0"
+    }
+}
