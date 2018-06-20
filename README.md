@@ -55,48 +55,47 @@ Step 3: Configuration & Implementation
 
 The GTM bundle allows you to define google tag manager parameters, providing a default values management.
 
-### Bundle implementation
+### Basic integration
 
-There are two ways to implement the google tag manager:
-- [Using the Twig Extension](#twig:extension)
-- [Using the Twig partial](#twig:partial)
-
-<a name="twig:extension"></a>
-
-#### Using the Twig Extension
-
-The bundle exposes a twig function `render_google_tag_manager(route)` taking the route as argument, which renders the GTM as a JSON object:
-
-```twig
-<script>
-    dataLayer = [{{ render_google_tag_manager(app.request.attributes.get('_route')) }}];
-</script>
+```yaml
+# app/config/config.yml
+#...
+norsys_google_tag_manager:
+    id: 'GTM-XXXXXX'
 ```
 
-<a name="twig:partial"></a>
+#### Template integration
 
-#### Using the Twig partial
-
-To ease quick integration, the bundle provides a `twig` partial, taking 2 mandatory arguments:
-
-
-- `google_key`: Your account ID key for google tag manager
-- `route`: The route of the page including the partial
+To ease quick integration, the bundle provides a `twig` partial and a javascript file to include in your template:
 
 Example:
 
 ```twig
 {# Google Tag Manager #}
 {% block google_tag_manager %}
-    {% include '@NorsysGoogleTagManager/google_tag_manager.html.twig' with {
-        'route': app.request.attributes.get('_route'),
-        'google_key': 'GTM-XXXXXX'
-    } %}
+    {% include '@NorsysGoogleTagManager/google_tag_manager.html.twig' %}
+    {{ asset('web/bundles/norsysgoogletagmanager/js/google-tag-manager.js') }}
 {% endblock google_tag_manager %}
-
 ```
 
-### Bundle configuration
+#### Controlling GTM loading
+
+By default, GoogleTagManager is initialized at the point the javascript file is included.
+
+You can also tied it to a specific DOM event:
+
+```yaml
+# app/config/config.yml
+#...
+norsys_google_tag_manager:
+    id: 'GTM-XXXXXX'
+    on_event:
+        enabled: true
+        name: load
+        container: body
+```
+
+### DataLayer configuration
 
 The GoogleTagManager Bundle handles 2 distinct types of parameters:
 - [Static parameters](#usage:static)
@@ -114,38 +113,23 @@ Here is a very basic config example:
 # app/config/config.yml
 #...
 norsys_google_tag_manager:
-    default:
-        static:
-            virtualPageURL: '/home'
-
-    pages:
-        faq:
+    data_layer:
+        default:
             static:
-                virtualPageURL: '/otherLink/faq'
+                virtualPageURL: '/home'
+
+        pages:
+            faq:
+                static:
+                    virtualPageURL: '/otherLink/faq'
 ```
 
 The bundle will merge defaults and per-route static parameters, and issue the resulting data layer.
 
-Here the resulting generated html for the page responding to the `faq` route:
+The dataLayer sent for the page responding to the `faq` route will be:
 
-```html
-<script>
+```javascript
     dataLayer = [ { "virtualPageURL": "/otherLink/faq" } ];
-</script>
-
-<noscript>
-    <iframe src="//www.googletagmanager.com/ns.html?id=GTM-XXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-</noscript>
-
-<script>
-    (function(w,d,s,l,i){w[l]=w[l]||[];
-        w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});
-        var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
-        j.async=true;
-        j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;
-        f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-XXXXXX');
-</script>
 ```
 
 <a name="usage:dynamic"></a>
@@ -208,11 +192,12 @@ Now we can use the parameter in the bundle config, referencing to it via the ali
 # app/config/config.yml
 #...
 norsys_google_tag_manager:
-    default:
-        # ...
-        dynamic:
-            acmeDynamicParam: ~
-        # ...
+    data_layer:
+        default:
+            # ...
+            dynamic:
+                acmeDynamicParam: ~
+            # ...
 ```
 
 
@@ -224,11 +209,12 @@ As an example, let's say we want to pass a C-like template string:
 # app/config/config.yml
 #...
 norsys_google_tag_manager:
-    default:
-        # ...
-        dynamic:
-            acmeDynamicParam: '%s:%s:%s'
-        # ...
+    data_layer:
+        default:
+            # ...
+            dynamic:
+                acmeDynamicParam: '%s:%s:%s'
+            # ...
 ```
 
 We can then easily fetch this init value for further processing inside the `getValue()` method:
@@ -270,16 +256,16 @@ Dynamic parameters can also be overriden, on a per-route basis:
 
 ```yaml
 norsys_google_tag_manager:
-    default:
-        # ...
-        dynamic:
-            acmeDynamicParam: 'whatever-init-value'
-
-    pages:
-        faq:
+    data_layer:
+        default:
+            # ...
             dynamic:
-                acmeDynamicParam: 'another-init-value'
+                acmeDynamicParam: 'whatever-init-value'
 
+        pages:
+            faq:
+                dynamic:
+                    acmeDynamicParam: 'another-init-value'
 ```
 
 #### Dynamic parameters aliases
@@ -291,52 +277,38 @@ Let's consider using an alias of the previously created `acmeDynamicParam`:
 
 ```yaml
 norsys_google_tag_manager:
-    aliases:
-        myDummyParam: acmeDynamicParam
+    data_layer:
+        aliases:
+            myDummyParam: acmeDynamicParam
 
-    default:
-        # ...
-        dynamic:
-            acmeDynamicParam: 'whatever-init-value'
+        default:
+            # ...
+            dynamic:
+                acmeDynamicParam: 'whatever-init-value'
 ```
 
 Now we can use the aliased name to refer directly to its target:
 
 ```yaml
 norsys_google_tag_manager:
-    aliases:
-        myDummyParam: acmeDynamicParam
+    data_layer:
+        aliases:
+            myDummyParam: acmeDynamicParam
 
-    default:
-        # ...
-        dynamic:
-            # The following is equivalent to:
-            #
-            # acmeDynamicParam: 'whatever-init-value'
-            #
-            myDummyParam: 'whatever-init-value'
+        default:
+            # ...
+            dynamic:
+                # The following is equivalent to:
+                #
+                # acmeDynamicParam: 'whatever-init-value'
+                #
+                myDummyParam: 'whatever-init-value'
 ```
 
 ### Conclusion
 
-Now, taking for granted the 2 above `static` and `dynamic` configured parameters, the resulting generated html for the `faq` route would be something like:
+Now, taking for granted the 2 above `static` and `dynamic` configured parameters, the resulting generated dataLayer for the `faq` route would be something like:
 
-```html
-<script>
+```javascript
     dataLayer = [ { "virtualPageURL": "/otherLink/faq", "acmeDynamicParam": "constructed-value" } ];
-</script>
-
-<noscript>
-    <iframe src="//www.googletagmanager.com/ns.html?id=GTM-XXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-</noscript>
-
-<script>
-    (function(w,d,s,l,i){w[l]=w[l]||[];
-        w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});
-        var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
-        j.async=true;
-        j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;
-        f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-XXXXXX');
-</script>
 ```
