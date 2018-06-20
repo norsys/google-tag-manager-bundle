@@ -52,6 +52,7 @@ class Configuration implements ConfigurationInterface
                     ->cannotBeEmpty()
                 ->end()
                 ->arrayNode('data_layer')
+                    ->addDefaultsIfNotSet()
                     ->children()
                         ->append($this->addDefaultSection())
                         ->append($this->addPagesSection())
@@ -73,6 +74,7 @@ class Configuration implements ConfigurationInterface
     {
         return $this->nodeBuilder
             ->arrayNode('default')
+                ->addDefaultsIfNotSet()
                 ->isRequired()
                 ->children()
                     ->arrayNode(self::CONFIG_STATIC_KEY)
