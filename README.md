@@ -1,5 +1,10 @@
 # Norsys Google Tag Manager Bundle
 
+[![Latest Stable Version](https://poser.pugx.org/norsys/google-tag-manager-bundle/version?format=flat-square)](https://packagist.org/packages/norsys/google-tag-manager-bundle)
+[![Total Downloads](https://poser.pugx.org/norsys/google-tag-manager-bundle/downloads?format=flat-square)](https://packagist.org/packages/norsys/google-tag-manager-bundle)
+[![Build Status](https://travis-ci.org/norsys/google-tag-manager-bundle.svg?branch=master)](https://travis-ci.org/norsys/google-tag-manager-bundle)
+[![License](https://poser.pugx.org/norsys/google-tag-manager-bundle/license?format=flat-square)](https://packagist.org/packages/norsys/google-tag-manager-bundle)
+
 This project is a bundle which eases the configuration and handling of Google Tag Manager.
 
 It provides a bunch of base classes to extend from.
@@ -312,3 +317,11 @@ Now, taking for granted the 2 above `static` and `dynamic` configured parameters
 ```javascript
     dataLayer = [ { "virtualPageURL": "/otherLink/faq", "acmeDynamicParam": "constructed-value" } ];
 ```
+
+## Credits
+
+Developped by :heart: with [Norsys](https://www.norsys.fr/)
+
+## License
+
+This project is licensed under the [MIT license](LICENSE).
