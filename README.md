@@ -1,9 +1,10 @@
 # Norsys Google Tag Manager Bundle
 
-[![Latest Stable Version](https://poser.pugx.org/norsys/google-tag-manager-bundle/version?format=flat-square)](https://packagist.org/packages/norsys/google-tag-manager-bundle)
-[![Total Downloads](https://poser.pugx.org/norsys/google-tag-manager-bundle/downloads?format=flat-square)](https://packagist.org/packages/norsys/google-tag-manager-bundle)
-[![Build Status](https://travis-ci.org/norsys/google-tag-manager-bundle.svg?branch=master)](https://travis-ci.org/norsys/google-tag-manager-bundle)
-[![License](https://poser.pugx.org/norsys/google-tag-manager-bundle/license?format=flat-square)](https://packagist.org/packages/norsys/google-tag-manager-bundle)
+[![Package version](https://img.shields.io/packagist/v/norsys/google-tag-manager-bundle.svg?style=flat-square)](https://packagist.org/packages/norsys/google-tag-manager-bundle)
+[![Total Downloads](https://img.shields.io/packagist/dt/norsys/google-tag-manager-bundle.svg?style=flat-square)](https://packagist.org/packages/norsys/google-tag-manager-bundle)
+[![Build Status](https://img.shields.io/travis/M6Web/ApiExceptionBundle/master.svg?style=flat-square)](https://travis-ci.org/M6Web/ApiExceptionBundle)
+[![Scrutinizer Coverage](https://img.shields.io/scrutinizer/coverage/g/norsys/google-tag-manager-bundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/norsys/google-tag-manager-bundle/?branch=master)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/norsys/google-tag-manager-bundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/norsys/google-tag-manager-bundle/?branch=master)
 
 This project is a bundle which eases the configuration and handling of Google Tag Manager.
 
