@@ -5,7 +5,7 @@
 [![Build Status](https://img.shields.io/travis/M6Web/ApiExceptionBundle/master.svg?style=flat-square)](https://travis-ci.org/M6Web/ApiExceptionBundle)
 [![Scrutinizer Coverage](https://img.shields.io/scrutinizer/coverage/g/norsys/google-tag-manager-bundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/norsys/google-tag-manager-bundle/?branch=master)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/norsys/google-tag-manager-bundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/norsys/google-tag-manager-bundle/?branch=master)
-[![License](https://img.shields.io/packagist/l/norsys/google-tag-manager-bundle.svg?style=flat-square)](https://packagist.org/packages/norsys/google-tag-manager-bundle)
+[![License](https://img.shields.io/github/license/norsys/google-tag-manager-bundle.svg?style=flat-square)](https://github.com/norsys/google-tag-manager-bundle/blob/master/LICENSE)
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/eb4b735d-4782-4f2e-933f-916e20a2fb71/big.png)](https://insight.sensiolabs.com/projects/eb4b735d-4782-4f2e-933f-916e20a2fb71)
 
